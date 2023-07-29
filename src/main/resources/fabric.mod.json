@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "calculator",
+  "version": "${version}",
+  "name": "Calculator",
+  "description": "",
+  "authors": [
+    "Wafarm"
+  ],
+  "contact": {
+    "repo": "https://github.com/wafarm/Calculator"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/calculator/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.github.wafarm.calculator.client.CalculatorClient"
+    ],
+    "main": [
+      "io.github.wafarm.calculator.Calculator"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${minecraft_version}"
+  }
+}
