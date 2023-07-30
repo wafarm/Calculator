@@ -15,14 +15,13 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.github.wafarm.calculator.client.CalculatorClient"
-    ],
-    "main": [
-      "io.github.wafarm.calculator.Calculator"
+      "io.github.wafarm.calculator.CalculatorClient"
     ]
   },
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "java": ">=17",
+    "fabric-api": "*"
   }
 }
