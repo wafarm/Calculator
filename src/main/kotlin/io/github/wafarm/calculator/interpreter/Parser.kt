@@ -74,10 +74,6 @@ class Parser(private val tokens: List<Token>) {
         return tokens[current]
     }
 
-    private fun previous(): Token {
-        return tokens[current - 1]
-    }
-
     private fun match(vararg types: TokenType): Boolean {
         return peek().type in types
     }
