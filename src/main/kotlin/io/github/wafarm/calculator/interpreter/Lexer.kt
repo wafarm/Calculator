@@ -17,7 +17,7 @@ class Lexer(private val source: String) {
         }
 
         addToken(TokenType.EOF)
-        return tokens
+        return tokens.toList()
     }
 
     private fun scanToken() {
