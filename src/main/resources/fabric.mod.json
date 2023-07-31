@@ -10,7 +10,7 @@
   "contact": {
     "repo": "https://github.com/wafarm/Calculator"
   },
-  "license": "All-Rights-Reserved",
+  "license": "Apache-2.0",
   "icon": "assets/calculator/icon.png",
   "environment": "client",
   "entrypoints": {
