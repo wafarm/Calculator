@@ -1,9 +1,6 @@
 package io.github.wafarm.calculator.interpreter
 
-import io.github.wafarm.calculator.interpreter.ast.BaseAST
-import io.github.wafarm.calculator.interpreter.ast.BinaryExpressionAST
-import io.github.wafarm.calculator.interpreter.ast.NumberAST
-import io.github.wafarm.calculator.interpreter.ast.UnaryExpressionAST
+import io.github.wafarm.calculator.interpreter.ast.*
 import io.github.wafarm.calculator.interpreter.token.Token
 import io.github.wafarm.calculator.interpreter.token.TokenType
 
@@ -73,6 +70,10 @@ class Parser(private val tokens: List<Token>) {
                 number()
             }
 
+            TokenType.IDENTIFIER -> {
+                identifier()
+            }
+
             else -> {
                 throw ParseError("Unexpected token ${peek().type}")
             }
@@ -82,6 +83,11 @@ class Parser(private val tokens: List<Token>) {
     private fun number(): BaseAST {
         val number = consume(TokenType.NUMBER, "Expected a number").literal as Double
         return NumberAST(number)
+    }
+
+    private fun identifier(): BaseAST {
+        val identifier = consume(TokenType.IDENTIFIER, "Expected an identifier").literal as String
+        return IdentifierAST(identifier)
     }
 
     private fun advance(): Token {

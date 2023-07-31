@@ -1,12 +1,14 @@
 package io.github.wafarm.calculator.interpreter.visitor
 
+import io.github.wafarm.calculator.interpreter.Interpreter.InterpreterContext
 import io.github.wafarm.calculator.interpreter.ast.BinaryExpressionAST
+import io.github.wafarm.calculator.interpreter.ast.IdentifierAST
 import io.github.wafarm.calculator.interpreter.ast.NumberAST
 import io.github.wafarm.calculator.interpreter.ast.UnaryExpressionAST
 import io.github.wafarm.calculator.interpreter.token.TokenType
 import kotlin.math.pow
 
-class ExpressionVisitor : Visitor<Double> {
+class ExpressionVisitor(private val context: InterpreterContext) : Visitor<Double> {
     override fun visitBinaryExpressionAST(ast: BinaryExpressionAST): Double {
         val left = ast.left.accept(this)
         val right = ast.right.accept(this)
@@ -30,6 +32,11 @@ class ExpressionVisitor : Visitor<Double> {
 
     override fun visitNumberAST(ast: NumberAST): Double {
         return ast.number
+    }
+
+    override fun visitIdentifierAST(ast: IdentifierAST): Double {
+        return context.getIdentifier(ast.identifier)
+            ?: throw ExpressionEvaluateError("Unrecognized identifier ${ast.identifier}")
     }
 
     class ExpressionEvaluateError(message: String) : Error(message)

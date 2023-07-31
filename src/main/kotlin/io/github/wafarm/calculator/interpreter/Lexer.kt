@@ -31,6 +31,7 @@ class Lexer(private val source: String) {
             '/' -> addToken(TokenType.SLASH)
             '^' -> addToken(TokenType.POWER)
             in '0'..'9' -> number()
+            in CharRange('a', 'z') + CharRange('A', 'Z') -> identifier()
             ' ' -> Unit // Skip whitespaces (tabs and newlines should not exist in source)
             else -> {
                 throw LexError("Unexpected character '$c'.")
@@ -47,6 +48,12 @@ class Lexer(private val source: String) {
         }
 
         addToken(TokenType.NUMBER, source.substring(start, current).toDouble())
+    }
+
+    private fun identifier() {
+        while (Character.isAlphabetic(peek().code)) advance()
+
+        addToken(TokenType.IDENTIFIER, source.substring(start, current))
     }
 
     private fun addToken(type: TokenType) {
