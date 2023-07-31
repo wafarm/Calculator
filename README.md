@@ -10,4 +10,6 @@ Put the mod in the mods folder, and make sure you have Fabric API and Fabric Lan
 
 To calculate something, type `/calc <expression>`.
 
-Supported operators including `+ - * / ^(power)`
+Supported operators: `( ) + - * / ^(power)` and
+
+Supported constants: `e pi` (case-insensitive)
