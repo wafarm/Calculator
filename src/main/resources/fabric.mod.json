@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "calculator",
   "version": "${version}",
-  "name": "Calculator",
-  "description": "",
+  "name": "Yet Another Calculator",
+  "description": "A Minecraft mod that adds in-game calculating functions.",
   "authors": [
     "Wafarm"
   ],
