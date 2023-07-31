@@ -17,22 +17,29 @@ class Parser(private val tokens: List<Token>) {
     }
 
     private fun expression(): BaseAST {
-        return binary(0, unary())
+        return term()
     }
 
-    private fun binary(exprPrecedence: Int, leftAST: BaseAST): BaseAST {
-        var left = leftAST
-        while (true) {
-            val tokenPrecedence = Precedence.getPrecedence(peek().type)
-            if (tokenPrecedence < exprPrecedence) return left
+    // + and -
+    private fun term(): BaseAST {
+        var expr = factor()
+        while (match(TokenType.PLUS, TokenType.MINUS)) {
             val operator = advance()
-            var right = unary()
-            val nextPrecedence = Precedence.getPrecedence(peek().type)
-            if (tokenPrecedence < nextPrecedence) {
-                right = binary(tokenPrecedence + 1, right)
-            }
-            left = BinaryExpressionAST(operator, left, right)
+            val right = factor()
+            expr = BinaryExpressionAST(operator, expr, right)
         }
+        return expr
+    }
+
+    // * and /
+    private fun factor(): BaseAST {
+        var expr = unary()
+        while (match(TokenType.STAR, TokenType.SLASH)) {
+            val operator = advance()
+            val right = unary()
+            expr = BinaryExpressionAST(operator, expr, right)
+        }
+        return expr
     }
 
     private fun unary(): BaseAST {
@@ -86,20 +93,4 @@ class Parser(private val tokens: List<Token>) {
     }
 
     class ParseError(message: String) : Error(message)
-
-    private object Precedence {
-
-        private val binaryOpPrecedence: MutableMap<TokenType, Int> = mutableMapOf()
-
-        init {
-            binaryOpPrecedence[TokenType.PLUS] = 20
-            binaryOpPrecedence[TokenType.MINUS] = 20
-            binaryOpPrecedence[TokenType.STAR] = 30
-            binaryOpPrecedence[TokenType.SLASH] = 30
-        }
-
-        fun getPrecedence(type: TokenType): Int {
-            return binaryOpPrecedence.getOrDefault(type, -1)
-        }
-    }
 }
