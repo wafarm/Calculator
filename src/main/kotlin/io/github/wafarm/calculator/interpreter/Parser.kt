@@ -33,13 +33,24 @@ class Parser(private val tokens: List<Token>) {
 
     // * and /
     private fun factor(): BaseAST {
-        var expr = unary()
+        var expr = exp()
         while (match(TokenType.STAR, TokenType.SLASH)) {
             val operator = advance()
-            val right = unary()
+            val right = exp()
             expr = BinaryExpressionAST(operator, expr, right)
         }
         return expr
+    }
+
+    // ^
+    private fun exp(): BaseAST {
+        val left = unary()
+        if (match(TokenType.POWER)) {
+            val operator = advance()
+            val right = exp()
+            return BinaryExpressionAST(operator, left, right)
+        }
+        return left
     }
 
     private fun unary(): BaseAST {

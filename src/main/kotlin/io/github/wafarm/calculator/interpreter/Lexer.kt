@@ -29,6 +29,7 @@ class Lexer(private val source: String) {
             '-' -> addToken(TokenType.MINUS)
             '*' -> addToken(TokenType.STAR)
             '/' -> addToken(TokenType.SLASH)
+            '^' -> addToken(TokenType.POWER)
             in '0'..'9' -> number()
             ' ' -> Unit // Skip whitespaces (tabs and newlines should not exist in source)
             else -> {

@@ -4,6 +4,7 @@ import io.github.wafarm.calculator.interpreter.ast.BinaryExpressionAST
 import io.github.wafarm.calculator.interpreter.ast.NumberAST
 import io.github.wafarm.calculator.interpreter.ast.UnaryExpressionAST
 import io.github.wafarm.calculator.interpreter.token.TokenType
+import kotlin.math.pow
 
 class ExpressionVisitor : Visitor<Double> {
     override fun visitBinaryExpressionAST(ast: BinaryExpressionAST): Double {
@@ -14,6 +15,7 @@ class ExpressionVisitor : Visitor<Double> {
             TokenType.MINUS -> left - right
             TokenType.STAR -> left * right
             TokenType.SLASH -> left / right
+            TokenType.POWER -> left.pow(right)
             else -> throw ExpressionEvaluateError("Unrecognized operator ${ast.operator.type}")
         }
     }
