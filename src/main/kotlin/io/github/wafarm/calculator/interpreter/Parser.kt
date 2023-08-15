@@ -1,6 +1,8 @@
 package io.github.wafarm.calculator.interpreter
 
 import io.github.wafarm.calculator.interpreter.ast.*
+import io.github.wafarm.calculator.interpreter.objects.numeric.DecimalNumber
+import io.github.wafarm.calculator.interpreter.objects.numeric.IntegerNumber
 import io.github.wafarm.calculator.interpreter.token.Token
 import io.github.wafarm.calculator.interpreter.token.TokenType
 
@@ -66,8 +68,12 @@ class Parser(private val tokens: List<Token>) {
                 expr
             }
 
-            TokenType.NUMBER -> {
-                number()
+            TokenType.INTEGER -> {
+                integer()
+            }
+
+            TokenType.DECIMAL -> {
+                decimal()
             }
 
             TokenType.IDENTIFIER -> {
@@ -80,9 +86,14 @@ class Parser(private val tokens: List<Token>) {
         }
     }
 
-    private fun number(): BaseAST {
-        val number = consume(TokenType.NUMBER, "Expected a number").literal as Double
-        return NumberAST(number)
+    private fun integer(): BaseAST {
+        val number = consume(TokenType.INTEGER, "Expected an integer").literal as Int
+        return NumberAST(IntegerNumber.of(number))
+    }
+
+    private fun decimal(): BaseAST {
+        val number = consume(TokenType.DECIMAL, "Expected a decimal").literal as Double
+        return NumberAST(DecimalNumber.of(number))
     }
 
     private fun identifier(): BaseAST {
@@ -108,6 +119,4 @@ class Parser(private val tokens: List<Token>) {
         }
         return advance()
     }
-
-    class ParseError(message: String) : Error(message)
 }

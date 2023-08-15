@@ -4,7 +4,7 @@ enum class TokenType {
     LEFT_PAREN, RIGHT_PAREN,
     PLUS, MINUS, STAR, SLASH, POWER,
 
-    NUMBER, IDENTIFIER,
+    INTEGER, DECIMAL, IDENTIFIER,
 
     EOF
 }

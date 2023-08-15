@@ -42,12 +42,18 @@ class Lexer(private val source: String) {
     private fun number() {
         while (Character.isDigit(peek())) advance()
 
+        var isDecimal = false
         if (peek() == '.') {
+            isDecimal = true
             advance()
             while (Character.isDigit(peek())) advance()
         }
 
-        addToken(TokenType.NUMBER, source.substring(start, current).toDouble())
+        if (isDecimal) {
+            addToken(TokenType.DECIMAL, source.substring(start, current).toDouble())
+        } else {
+            addToken(TokenType.INTEGER, source.substring(start, current).toInt())
+        }
     }
 
     private fun identifier() {
