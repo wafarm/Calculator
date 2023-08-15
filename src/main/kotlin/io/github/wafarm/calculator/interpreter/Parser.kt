@@ -1,8 +1,8 @@
 package io.github.wafarm.calculator.interpreter
 
 import io.github.wafarm.calculator.interpreter.ast.*
-import io.github.wafarm.calculator.interpreter.objects.numeric.DecimalNumber
-import io.github.wafarm.calculator.interpreter.objects.numeric.IntegerNumber
+import io.github.wafarm.calculator.interpreter.bulitin.numeric.DecimalNumber
+import io.github.wafarm.calculator.interpreter.bulitin.numeric.IntegerNumber
 import io.github.wafarm.calculator.interpreter.token.Token
 import io.github.wafarm.calculator.interpreter.token.TokenType
 
@@ -56,7 +56,20 @@ class Parser(private val tokens: List<Token>) {
         if (match(TokenType.MINUS)) {
             return UnaryExpressionAST(advance(), primary())
         }
-        return primary()
+        return call()
+    }
+
+    private fun call(): BaseAST {
+        var expr = primary()
+
+        while (match(TokenType.LEFT_BRACKET)) {
+            advance()
+            val arguments = callArguments()
+            consume(TokenType.RIGHT_BRACKET, "Expected ']'")
+            expr = FunctionCallAST(expr, arguments)
+        }
+
+        return expr
     }
 
     private fun primary(): BaseAST {
@@ -74,6 +87,10 @@ class Parser(private val tokens: List<Token>) {
 
             TokenType.DECIMAL -> {
                 decimal()
+            }
+
+            TokenType.HISTORY -> {
+                history()
             }
 
             TokenType.IDENTIFIER -> {
@@ -96,9 +113,30 @@ class Parser(private val tokens: List<Token>) {
         return NumberAST(DecimalNumber.of(number))
     }
 
+    private fun history(): BaseAST {
+        val index = consume(TokenType.HISTORY, "Expected a history").literal as Int
+        return FunctionCallAST(IdentifierAST("Out"), listOf(NumberAST(IntegerNumber.of(index))))
+    }
+
     private fun identifier(): BaseAST {
         val identifier = consume(TokenType.IDENTIFIER, "Expected an identifier").literal as String
         return IdentifierAST(identifier)
+    }
+
+    private fun callArguments(): List<BaseAST> {
+        if (match(TokenType.RIGHT_BRACKET)) {
+            return listOf()
+        }
+
+        val arguments: MutableList<BaseAST> = mutableListOf()
+
+        while (true) {
+            arguments.add(expression())
+            if (match(TokenType.RIGHT_BRACKET)) break
+            consume(TokenType.COMMA, "Expected ','")
+        }
+
+        return arguments
     }
 
     private fun advance(): Token {

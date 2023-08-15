@@ -2,15 +2,24 @@ package io.github.wafarm.calculator.interpreter.visitor
 
 import io.github.wafarm.calculator.interpreter.ExpressionEvaluateError
 import io.github.wafarm.calculator.interpreter.Interpreter.InterpreterContext
-import io.github.wafarm.calculator.interpreter.ast.BinaryExpressionAST
-import io.github.wafarm.calculator.interpreter.ast.IdentifierAST
-import io.github.wafarm.calculator.interpreter.ast.NumberAST
-import io.github.wafarm.calculator.interpreter.ast.UnaryExpressionAST
+import io.github.wafarm.calculator.interpreter.ast.*
 import io.github.wafarm.calculator.interpreter.objects.BaseObject
-import io.github.wafarm.calculator.interpreter.objects.numeric.NumericObject
+import io.github.wafarm.calculator.interpreter.objects.FunctionObject
+import io.github.wafarm.calculator.interpreter.objects.NumericObject
 import io.github.wafarm.calculator.interpreter.token.TokenType
 
 class ExpressionVisitor(private val context: InterpreterContext) : Visitor<BaseObject> {
+    override fun visitFunctionCallAST(ast: FunctionCallAST): BaseObject {
+        val arguments = ast.arguments.map {
+            it.accept(this)
+        }
+        val function = ast.function.accept(this)
+        if (function !is FunctionObject) {
+            throw ExpressionEvaluateError("$function is not callable.")
+        }
+        return function.call(arguments, context)
+    }
+
     override fun visitBinaryExpressionAST(ast: BinaryExpressionAST): BaseObject {
         val left = ast.left.accept(this)
         val right = ast.right.accept(this)

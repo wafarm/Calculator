@@ -1,10 +1,12 @@
 package io.github.wafarm.calculator.interpreter.ast
 
-import io.github.wafarm.calculator.interpreter.objects.NumericObject
 import io.github.wafarm.calculator.interpreter.visitor.Visitor
 
-class NumberAST(val number: NumericObject) : BaseAST {
+class FunctionCallAST(
+    val function: BaseAST,
+    val arguments: List<BaseAST>
+) : BaseAST {
     override fun <S> accept(visitor: Visitor<S>): S {
-        return visitor.visitNumberAST(this)
+        return visitor.visitFunctionCallAST(this)
     }
 }

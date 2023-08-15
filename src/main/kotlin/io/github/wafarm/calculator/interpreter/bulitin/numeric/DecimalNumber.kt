@@ -1,53 +1,54 @@
-package io.github.wafarm.calculator.interpreter.objects.numeric
+package io.github.wafarm.calculator.interpreter.bulitin.numeric
 
+import io.github.wafarm.calculator.interpreter.objects.NumericObject
 import kotlin.math.pow
 
-class IntegerNumber(val value: Int) : NumericObject() {
+class DecimalNumber(val value: Double) : NumericObject() {
     override fun plus(other: NumericObject): NumericObject {
-        if (other is IntegerNumber) {
-            return IntegerNumber(value + other.value)
-        } else if (other is DecimalNumber) {
+        if (other is DecimalNumber) {
+            return DecimalNumber(value + other.value)
+        } else if (other is IntegerNumber) {
             return DecimalNumber(value + other.value)
         }
         throw IllegalStateException()
     }
 
     override fun minus(other: NumericObject): NumericObject {
-        if (other is IntegerNumber) {
-            return IntegerNumber(value - other.value)
-        } else if (other is DecimalNumber) {
+        if (other is DecimalNumber) {
+            return DecimalNumber(value - other.value)
+        } else if (other is IntegerNumber) {
             return DecimalNumber(value - other.value)
         }
         throw IllegalStateException()
     }
 
     override fun times(other: NumericObject): NumericObject {
-        if (other is IntegerNumber) {
-            return IntegerNumber(value * other.value)
-        } else if (other is DecimalNumber) {
+        if (other is DecimalNumber) {
+            return DecimalNumber(value * other.value)
+        } else if (other is IntegerNumber) {
             return DecimalNumber(value * other.value)
         }
         throw IllegalStateException()
     }
 
     override fun div(other: NumericObject): NumericObject {
-        if (other is IntegerNumber) {
-            return IntegerNumber(value / other.value)
-        } else if (other is DecimalNumber) {
+        if (other is DecimalNumber) {
+            return DecimalNumber(value / other.value)
+        } else if (other is IntegerNumber) {
             return DecimalNumber(value / other.value)
         }
         throw IllegalStateException()
     }
 
     override fun unaryMinus(): NumericObject {
-        return IntegerNumber(-value)
+        return DecimalNumber(-value)
     }
 
     override fun pow(other: NumericObject): NumericObject {
         if (other is IntegerNumber) {
-            return DecimalNumber(value.toDouble().pow(other.value))
+            return DecimalNumber(value.pow(other.value))
         } else if (other is DecimalNumber) {
-            return DecimalNumber(value.toDouble().pow(other.value))
+            return DecimalNumber(value.pow(other.value))
         }
         throw IllegalStateException()
     }
@@ -57,8 +58,8 @@ class IntegerNumber(val value: Int) : NumericObject() {
     }
 
     companion object {
-        fun of(value: Int): IntegerNumber {
-            return IntegerNumber(value)
+        fun of(value: Double): DecimalNumber {
+            return DecimalNumber(value)
         }
     }
 }
