@@ -13,3 +13,6 @@ To calculate something, type `/calc <expression>`.
 Supported operators: `( ) + - * / ^(power)`
 
 Supported constants: `e pi` (case-insensitive)
+
+You can use `%n` and `Out[n]` to refer to the n-th calculation result. For example, `%1` and `Out[1]` is the first
+result. Specially, `%` alone is the previous result.
