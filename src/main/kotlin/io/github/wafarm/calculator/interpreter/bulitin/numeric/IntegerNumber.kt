@@ -33,7 +33,7 @@ class IntegerNumber(val value: Int) : NumericObject() {
 
     override fun div(other: NumericObject): NumericObject {
         if (other is IntegerNumber) {
-            return IntegerNumber(value / other.value)
+            return DecimalNumber(value / other.value.toDouble())
         } else if (other is DecimalNumber) {
             return DecimalNumber(value / other.value)
         }
