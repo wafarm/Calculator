@@ -54,7 +54,7 @@ class Parser(private val tokens: List<Token>) {
 
     private fun unary(): BaseAST {
         if (match(TokenType.MINUS)) {
-            return UnaryExpressionAST(advance(), primary())
+            return UnaryExpressionAST(advance(), call())
         }
         return call()
     }
