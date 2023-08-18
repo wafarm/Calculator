@@ -1,8 +1,8 @@
 package io.github.wafarm.calculator.interpreter
 
-import io.github.wafarm.calculator.interpreter.bulitin.function.OutFunction
-import io.github.wafarm.calculator.interpreter.bulitin.numeric.DecimalNumber
+import io.github.wafarm.calculator.interpreter.builtin.function.OutFunction
 import io.github.wafarm.calculator.interpreter.objects.BaseObject
+import io.github.wafarm.calculator.interpreter.objects.numeric.DecimalNumber
 import io.github.wafarm.calculator.interpreter.visitor.ExpressionVisitor
 
 class Interpreter {

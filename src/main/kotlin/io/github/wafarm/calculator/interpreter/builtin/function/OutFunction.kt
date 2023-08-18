@@ -1,9 +1,9 @@
-package io.github.wafarm.calculator.interpreter.bulitin.function
+package io.github.wafarm.calculator.interpreter.builtin.function
 
 import io.github.wafarm.calculator.interpreter.Interpreter.InterpreterContext
-import io.github.wafarm.calculator.interpreter.bulitin.numeric.IntegerNumber
 import io.github.wafarm.calculator.interpreter.objects.BaseObject
 import io.github.wafarm.calculator.interpreter.objects.FunctionObject
+import io.github.wafarm.calculator.interpreter.objects.numeric.IntegerNumber
 
 class OutFunction : FunctionObject() {
     override fun call(arguments: List<BaseObject>, context: InterpreterContext): BaseObject {

@@ -1,8 +1,8 @@
 package io.github.wafarm.calculator.interpreter
 
 import io.github.wafarm.calculator.interpreter.ast.*
-import io.github.wafarm.calculator.interpreter.bulitin.numeric.DecimalNumber
-import io.github.wafarm.calculator.interpreter.bulitin.numeric.IntegerNumber
+import io.github.wafarm.calculator.interpreter.objects.numeric.DecimalNumber
+import io.github.wafarm.calculator.interpreter.objects.numeric.IntegerNumber
 import io.github.wafarm.calculator.interpreter.token.Token
 import io.github.wafarm.calculator.interpreter.token.TokenType
 

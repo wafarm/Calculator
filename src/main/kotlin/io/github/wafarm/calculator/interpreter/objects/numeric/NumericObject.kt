@@ -1,4 +1,7 @@
-package io.github.wafarm.calculator.interpreter.objects
+package io.github.wafarm.calculator.interpreter.objects.numeric
+
+import io.github.wafarm.calculator.interpreter.objects.BaseObject
+import io.github.wafarm.calculator.interpreter.objects.ObjectType
 
 abstract class NumericObject : BaseObject {
     override val type: ObjectType = ObjectType.NUMERIC

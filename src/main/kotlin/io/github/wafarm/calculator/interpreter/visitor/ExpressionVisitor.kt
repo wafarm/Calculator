@@ -5,7 +5,7 @@ import io.github.wafarm.calculator.interpreter.Interpreter.InterpreterContext
 import io.github.wafarm.calculator.interpreter.ast.*
 import io.github.wafarm.calculator.interpreter.objects.BaseObject
 import io.github.wafarm.calculator.interpreter.objects.FunctionObject
-import io.github.wafarm.calculator.interpreter.objects.NumericObject
+import io.github.wafarm.calculator.interpreter.objects.numeric.NumericObject
 import io.github.wafarm.calculator.interpreter.token.TokenType
 
 class ExpressionVisitor(private val context: InterpreterContext) : Visitor<BaseObject> {
