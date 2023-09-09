@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 public class CalculatorClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        //noinspection CodeBlock2Expr
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             CalculateCommand.register(dispatcher);
         });

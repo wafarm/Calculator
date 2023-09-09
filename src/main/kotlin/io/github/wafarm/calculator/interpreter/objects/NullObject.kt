@@ -1,5 +1,6 @@
 package io.github.wafarm.calculator.interpreter.objects
 
+@Suppress("unused")
 class NullObject : BaseObject {
     override val type: ObjectType = ObjectType.NULL
     override fun stringRepresentation(): String {
