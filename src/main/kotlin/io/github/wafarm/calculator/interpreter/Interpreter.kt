@@ -1,6 +1,6 @@
 package io.github.wafarm.calculator.interpreter
 
-import io.github.wafarm.calculator.interpreter.builtin.function.OutFunction
+import io.github.wafarm.calculator.interpreter.builtin.function.*
 import io.github.wafarm.calculator.interpreter.objects.BaseObject
 import io.github.wafarm.calculator.interpreter.objects.numeric.DecimalNumber
 import io.github.wafarm.calculator.interpreter.visitor.ExpressionVisitor
@@ -11,9 +11,13 @@ class Interpreter {
     private val visitor = ExpressionVisitor(context)
 
     init {
-        context.setIdentifier("pi", DecimalNumber.of(Math.PI))
-        context.setIdentifier("e", DecimalNumber.of(Math.E))
+        context.setIdentifier("Pi", DecimalNumber.of(Math.PI))
+        context.setIdentifier("E", DecimalNumber.of(Math.E))
         context.setIdentifier("Out", OutFunction())
+        context.setIdentifier("Sin", SinFunction())
+        context.setIdentifier("Cos", CosFunction())
+        context.setIdentifier("Tan", TanFunction())
+        context.setIdentifier("Deg", DegFunction())
     }
 
     class InterpreterContext {
