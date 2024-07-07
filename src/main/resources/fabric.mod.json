@@ -20,7 +20,7 @@
   },
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "java": ">=17",
+    "java": ">=21",
     "fabric-api": "*",
     "fabric-language-kotlin": ">=${fabric_kotlin_version}"
   }

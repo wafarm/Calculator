@@ -15,6 +15,6 @@ public class CalculatorClient implements ClientModInitializer {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             CalculateCommand.register(dispatcher);
         });
-        ArgumentTypeRegistry.registerArgumentType(new Identifier("calculator", "expression"), ExpressionArgumentType.class, ConstantArgumentSerializer.of(ExpressionArgumentType::expression));
+        ArgumentTypeRegistry.registerArgumentType(Identifier.of("calculator", "expression"), ExpressionArgumentType.class, ConstantArgumentSerializer.of(ExpressionArgumentType::expression));
     }
 }
