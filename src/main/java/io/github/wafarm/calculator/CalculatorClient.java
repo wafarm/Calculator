@@ -5,8 +5,8 @@ import io.github.wafarm.calculator.command.argument.ExpressionArgumentType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
-import net.minecraft.command.argument.serialize.ConstantArgumentSerializer;
-import net.minecraft.util.Identifier;
+import net.minecraft.commands.synchronization.SingletonArgumentInfo;
+import net.minecraft.resources.ResourceLocation;
 
 public class CalculatorClient implements ClientModInitializer {
     @Override
@@ -15,6 +15,6 @@ public class CalculatorClient implements ClientModInitializer {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             CalculateCommand.register(dispatcher);
         });
-        ArgumentTypeRegistry.registerArgumentType(Identifier.of("calculator", "expression"), ExpressionArgumentType.class, ConstantArgumentSerializer.of(ExpressionArgumentType::expression));
+        ArgumentTypeRegistry.registerArgumentType(ResourceLocation.fromNamespaceAndPath("calculator", "expression"), ExpressionArgumentType.class, SingletonArgumentInfo.contextFree(ExpressionArgumentType::expression));
     }
 }

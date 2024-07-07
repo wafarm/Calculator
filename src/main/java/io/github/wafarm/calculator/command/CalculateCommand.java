@@ -5,7 +5,7 @@ import io.github.wafarm.calculator.command.argument.ExpressionArgumentType;
 import io.github.wafarm.calculator.interpreter.Interpreter;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 public class CalculateCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
@@ -14,9 +14,9 @@ public class CalculateCommand {
                     String expressionString = ExpressionArgumentType.getExpression("expression", context);
                     try {
                         String result = Interpreter.Companion.interpret(expressionString);
-                        context.getSource().sendFeedback(Text.literal(result));
+                        context.getSource().sendFeedback(Component.literal(result));
                     } catch (Error e) {
-                        context.getSource().sendError(Text.literal(e.getMessage()));
+                        context.getSource().sendError(Component.literal(e.getMessage()));
                     }
                     return 0;
                 }))
