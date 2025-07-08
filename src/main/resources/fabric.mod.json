@@ -19,9 +19,9 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": "*",
     "java": ">=21",
     "fabric-api": "*",
-    "fabric-language-kotlin": ">=${fabric_kotlin_version}"
+    "fabric-language-kotlin": "*"
   }
 }
